@@ -19,6 +19,8 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.State
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -48,7 +50,8 @@ import ca.tetervak.dicegame.ui.roller.RollerViewModel
 fun AppRootScreen(
     viewModel: RollerViewModel = viewModel()
 ) {
-    val uiState: RollerUiState = viewModel.uiState.value
+    val state: State<RollerUiState> = viewModel.uiState.collectAsState()
+    val uiState: RollerUiState = state.value
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
 
     Scaffold(
@@ -72,8 +75,9 @@ fun AppRootScreen(
 
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier.padding(innerPadding)
-                    .fillMaxSize()
+            modifier = Modifier
+                .padding(innerPadding)
+                .fillMaxSize()
                 .verticalScroll(rememberScrollState())
                 .padding(top = 32.dp)
         ) {
