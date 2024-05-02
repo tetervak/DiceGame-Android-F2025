@@ -11,6 +11,11 @@
     <string name="menu">Menu</string>
     <string name="number_of_dice">Number of Dice</string>
 
+    <plurals name="not_rolled_message">
+        <item quantity="one">The Dice Is Not Rolled</item>
+        <item quantity="other">The Dice Are Not Rolled</item>
+    </plurals>
+
     <string-array name="choices_of_numbers_of_dice">
         <item>One Dice</item>
         <item>Two Dice</item>

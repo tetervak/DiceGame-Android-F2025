@@ -7,6 +7,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Refresh
+import androidx.compose.material3.Button
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuBox
@@ -90,15 +91,23 @@ fun AppRootScreen(
             when (uiState) {
                 is RollerUiState.Rolled -> RolledBody(
                     rollData = uiState.rollData,
-                    date = uiState.date,
-                    onRoll = viewModel::onRoll,
-                    onReset = viewModel::onReset
+                    date = uiState.date
                 )
 
                 is RollerUiState.NotRolled -> NotRolledBody(
-                    numberOfDice = uiState.numberOfDice,
-                    onRoll = viewModel::onRoll
+                    numberOfDice = uiState.numberOfDice
                 )
+            }
+
+            Button(
+                onClick = viewModel::onRoll, modifier = Modifier.padding(top = 8.dp)
+            ) {
+                Text(text = stringResource(R.string.roll_button_label, uiState.numberOfDice))
+            }
+            Button(
+                onClick = viewModel::onReset, modifier = Modifier.padding(top = 16.dp)
+            ) {
+                Text(text = stringResource(R.string.reset_button_label))
             }
         }
     }
@@ -111,9 +120,9 @@ fun NumberOfDiceInput(
     onChange: (Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val selectOptions = stringArrayResource(id = R.array.choices_of_numbers_of_dice)
     var selectExpanded: Boolean by remember { mutableStateOf(false) }
-    var selectedText by remember { mutableStateOf(selectOptions[numberOfDice - 1]) }
+    val selectOptions = stringArrayResource(id = R.array.choices_of_numbers_of_dice)
+    val selectedText = selectOptions[numberOfDice - 1]
 
     ExposedDropdownMenuBox(
         expanded = selectExpanded,
@@ -157,7 +166,6 @@ fun NumberOfDiceInput(
             selectOptions.forEach { option ->
                 DropdownMenuItem(
                     onClick = {
-                        selectedText = option
                         selectExpanded = false
                         onChange(selectOptions.indexOf(option) + 1)
                     },

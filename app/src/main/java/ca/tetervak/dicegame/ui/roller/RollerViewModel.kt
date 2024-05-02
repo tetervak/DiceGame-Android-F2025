@@ -9,8 +9,7 @@ import java.util.Date
 
 class RollerViewModel : ViewModel() {
 
-    private val _uiState: MutableStateFlow<RollerUiState> =
-        MutableStateFlow(RollerUiState.NotRolled(numberOfDice = 3))
+    private val _uiState: MutableStateFlow<RollerUiState> = MutableStateFlow(INIT_STATE)
     val uiState: StateFlow<RollerUiState> = _uiState
 
     private val rollerService: RollerService = RollerService()
@@ -23,11 +22,15 @@ class RollerViewModel : ViewModel() {
     }
 
     fun onReset() {
-        _uiState.value = RollerUiState.NotRolled(uiState.value.numberOfDice)
+        _uiState.value = INIT_STATE
     }
 
     fun onChangeOfNumberOfDice(newNumberOfDice: Int) {
         _uiState.value = RollerUiState.NotRolled(newNumberOfDice)
+    }
+
+    companion object {
+        private val INIT_STATE = RollerUiState.NotRolled(numberOfDice = 3)
     }
 
 }

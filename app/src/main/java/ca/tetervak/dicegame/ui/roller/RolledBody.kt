@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentWidth
-import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -31,8 +30,6 @@ import java.util.Date
 fun RolledBody(
     rollData: RollData,
     date: Date,
-    onRoll: () -> Unit,
-    onReset: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -40,7 +37,7 @@ fun RolledBody(
         verticalArrangement = Arrangement.spacedBy(20.dp),
         modifier = modifier
             .fillMaxSize()
-            .padding(top = 40.dp)
+            .padding(top = 40.dp, bottom = 40.dp)
     ) {
         val list: List<Int> = rollData.values
         DiceImagesRow(list)
@@ -49,16 +46,6 @@ fun RolledBody(
             TotalRow(labelRes = R.string.roll_total_label, total = rollData.total)
         }
         RollerTimeStamp(date)
-        Button(
-            onClick = onRoll, modifier = Modifier.padding(top = 8.dp)
-        ) {
-            Text(text = stringResource(R.string.roll_button_label, rollData.numberOfDice))
-        }
-        Button(
-            onClick = onReset, modifier = Modifier.padding(top = 16.dp)
-        ) {
-            Text(text = stringResource(R.string.reset_button_label))
-        }
     }
 }
 
@@ -67,9 +54,7 @@ fun RolledBody(
 fun RolledBodyPreview() {
     RolledBody(
         rollData = RollData(listOf(1, 2, 3)),
-        date = Date(),
-        onRoll = {},
-        onReset = {}
+        date = Date()
     )
 }
 
