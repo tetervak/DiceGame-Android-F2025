@@ -13,7 +13,7 @@ import kotlinx.coroutines.launch
 import java.util.Date
 import kotlin.random.Random
 
-class RollerViewModel: ViewModel() {
+class RollerViewModel : ViewModel() {
 
     private val _uiState: MutableState<RollerUiState> =
         mutableStateOf(RollerUiState.NotRolled)

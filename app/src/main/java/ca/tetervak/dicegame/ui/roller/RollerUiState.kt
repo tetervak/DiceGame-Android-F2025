@@ -10,5 +10,5 @@ sealed interface RollerUiState {
         val date: Date,
     ) : RollerUiState
 
-    data object NotRolled: RollerUiState
+    data object NotRolled : RollerUiState
 }

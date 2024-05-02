@@ -1,4 +1,4 @@
-package ca.tetervak.dicegame.util
+package ca.tetervak.dicegame.ui.util
 
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter

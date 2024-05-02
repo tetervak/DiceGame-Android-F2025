@@ -2,7 +2,7 @@ package ca.tetervak.dicegame.domain
 
 class RollData(
     val values: List<Int>
-){
+) {
 
     val total: Int = values.sum()
 

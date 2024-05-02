@@ -41,6 +41,6 @@ fun NotRolledBody(
 
 @Preview(showBackground = true)
 @Composable
-fun NotRolledBodyPreview(){
-        NotRolledBody(numberOfDice = 3, onRoll = {})
+fun NotRolledBodyPreview() {
+    NotRolledBody(numberOfDice = 3, onRoll = {})
 }

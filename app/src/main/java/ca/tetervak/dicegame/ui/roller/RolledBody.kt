@@ -25,7 +25,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import ca.tetervak.dicegame.R
 import ca.tetervak.dicegame.domain.RollData
-import ca.tetervak.dicegame.util.formatDateAndTime
+import ca.tetervak.dicegame.ui.util.formatDateAndTime
 import java.util.Date
 
 @Composable
@@ -47,7 +47,7 @@ fun RolledBody(
         val list: List<Int> = rollData.values
         DiceImagesRow(list)
         DiceValuesRow(list)
-        if (rollData.numberOfDice > 1){
+        if (rollData.numberOfDice > 1) {
             TotalRow(labelRes = R.string.roll_total_label, total = rollData.total)
         }
         RollerTimeStamp(date)
@@ -95,7 +95,7 @@ fun TotalRow(@StringRes labelRes: Int, total: Int, modifier: Modifier = Modifier
 
 @Preview
 @Composable
-fun TotalRowPreview(){
+fun TotalRowPreview() {
     TotalRow(labelRes = R.string.roll_total_label, total = 16)
 }
 
@@ -116,8 +116,8 @@ fun DiceValuesRow(list: List<Int>, modifier: Modifier = Modifier) {
 
 @Preview
 @Composable
-fun DiceValuesRowPreview(){
-    DiceValuesRow(list = listOf(3,2,5,6))
+fun DiceValuesRowPreview() {
+    DiceValuesRow(list = listOf(3, 2, 5, 6))
 }
 
 @Composable
@@ -151,7 +151,7 @@ private fun diceImageResourceId(value: Int) = when (value) {
 
 @Preview
 @Composable
-fun DiceImagesRowPreview(){
+fun DiceImagesRowPreview() {
     DiceImagesRow(list = listOf(3, 4, 2, 5))
 }
 
@@ -167,6 +167,6 @@ fun RollerTimeStamp(date: Date, modifier: Modifier = Modifier) {
 
 @Preview
 @Composable
-fun RollerTimeStampPreview(){
+fun RollerTimeStampPreview() {
     RollerTimeStamp(date = Date())
 }

@@ -4,13 +4,13 @@ import kotlin.random.Random
 
 class RollerService(
     private val random: Random = Random.Default
-){
+) {
 
     fun getRollData(numberOfDice: Int): RollData {
-        if(numberOfDice > 0){
+        if (numberOfDice > 0) {
             val list: List<Int> =
                 buildList(capacity = numberOfDice) {
-                    repeat(numberOfDice){
+                    repeat(numberOfDice) {
                         add(random.nextInt(from = 1, until = 7))
                     }
                 }
