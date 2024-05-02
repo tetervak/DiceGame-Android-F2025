@@ -25,7 +25,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import ca.tetervak.dicegame.R
 import ca.tetervak.dicegame.domain.RollData
-import ca.tetervak.dicegame.ui.util.formatDateAndTime
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
 import java.util.Date
 
 @Composable
@@ -170,3 +171,12 @@ fun RollerTimeStamp(date: Date, modifier: Modifier = Modifier) {
 fun RollerTimeStampPreview() {
     RollerTimeStamp(date = Date())
 }
+
+private val dateAndTimeFormatter =
+    DateTimeFormatter.ofPattern("EEE, MMM dd, yyyy - h:mm:ss a")
+
+private fun formatDateAndTime(date: Date): String =
+    date.toInstant()
+        .atZone(ZoneId.systemDefault())
+        .toLocalDateTime()
+        .format(dateAndTimeFormatter)
