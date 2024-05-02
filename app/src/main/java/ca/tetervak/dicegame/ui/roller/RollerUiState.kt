@@ -5,10 +5,17 @@ import java.util.Date
 
 sealed interface RollerUiState {
 
+    val numberOfDice: Int
+
     data class Rolled(
         val rollData: RollData,
         val date: Date,
-    ) : RollerUiState
+    ) : RollerUiState {
+        override val numberOfDice: Int
+            get() = rollData.numberOfDice
+    }
 
-    data object NotRolled : RollerUiState
+    data class NotRolled(
+        override val numberOfDice: Int
+    ) : RollerUiState
 }
