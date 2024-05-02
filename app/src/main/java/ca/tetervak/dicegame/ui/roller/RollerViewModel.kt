@@ -7,7 +7,6 @@ import androidx.lifecycle.ViewModel
 import ca.tetervak.dicegame.domain.RollData
 import ca.tetervak.dicegame.domain.RollerService
 import java.util.Date
-import kotlin.random.Random
 
 class RollerViewModel : ViewModel() {
 
@@ -15,7 +14,7 @@ class RollerViewModel : ViewModel() {
         mutableStateOf(RollerUiState.NotRolled(numberOfDice = 3))
     val uiState: State<RollerUiState> = _uiState
 
-    private val rollerService: RollerService = RollerService(Random.Default)
+    private val rollerService: RollerService = RollerService()
 
     fun onRoll() {
         val rollData: RollData = rollerService.getRollData(uiState.value.numberOfDice)
