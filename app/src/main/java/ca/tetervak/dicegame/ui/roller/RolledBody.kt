@@ -32,7 +32,6 @@ import java.util.Date
 fun RolledBody(
     rollData: RollData,
     date: Date,
-    numberOfDice: Int,
     onRoll: () -> Unit,
     onReset: () -> Unit,
     modifier: Modifier = Modifier
@@ -55,7 +54,7 @@ fun RolledBody(
         Button(
             onClick = onRoll, modifier = Modifier.padding(top = 8.dp)
         ) {
-            Text(text = stringResource(R.string.roll_button_label, numberOfDice))
+            Text(text = stringResource(R.string.roll_button_label, rollData.numberOfDice))
         }
         Button(
             onClick = onReset, modifier = Modifier.padding(top = 16.dp)
@@ -71,7 +70,6 @@ fun RolledBodyPreview() {
     RolledBody(
         rollData = RollData(listOf(1, 2, 3)),
         date = Date(),
-        numberOfDice = 3,
         onRoll = {},
         onReset = {}
     )

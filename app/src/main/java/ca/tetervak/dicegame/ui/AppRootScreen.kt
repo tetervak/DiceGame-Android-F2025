@@ -56,7 +56,6 @@ fun AppRootScreen(
             is RollerUiState.Rolled -> RolledBody(
                 rollData = rollerUiState.rollData,
                 date = rollerUiState.date,
-                numberOfDice = numberOfDice,
                 onRoll = viewModel::onRoll,
                 onReset = viewModel::onReset,
                 modifier = Modifier.padding(innerPadding)
