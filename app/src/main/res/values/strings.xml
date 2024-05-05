@@ -10,6 +10,7 @@
     <string name="nav_roller_title">Dice Roller</string>
     <string name="menu">Menu</string>
     <string name="number_of_dice">Number of Dice</string>
+    <string name="timestamp_pattern">EEE, MMM dd, yyyy - h:mm:ss a</string>
 
     <plurals name="not_rolled_message">
         <item quantity="one">The Dice Is Not Rolled</item>
