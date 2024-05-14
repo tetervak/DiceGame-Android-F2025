@@ -1,8 +1,7 @@
 package ca.tetervak.dicegame.domain
 
 import org.junit.After
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertThrows
+import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
 import java.lang.IllegalArgumentException
@@ -34,8 +33,8 @@ class RollerServiceTest {
                 assertEquals(numberOfDice, rollData.numberOfDice)
                 val values = rollData.values
                 for(value in values){
-                    assert(value > 0)
-                    assert(value <= 6)
+                    assertTrue(value > 0)
+                    assertTrue(value <= 6)
                 }
             }
         }
