@@ -24,4 +24,8 @@
         <item>Four Dice</item>
     </string-array>
 
+    <string name="about_dice_game">About Dice Game</string>
+    <string name="programming_example">This is a programming example from an Android application development course.</string>
+    <string name="ok">OK</string>
+
 </resources>

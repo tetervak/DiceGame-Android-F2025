@@ -7,6 +7,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Refresh
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -18,6 +19,7 @@ import androidx.compose.material3.MenuAnchorType
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
@@ -25,6 +27,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -54,9 +57,14 @@ fun AppRootScreen(
     val uiState: RollerUiState = state.value
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
 
+    var showAboutDialog: Boolean by rememberSaveable {
+        mutableStateOf(false)
+    }
+
     Scaffold(
         topBar = {
             RollerTopAppBar(
+                onHelpButtonClick = { showAboutDialog = true },
                 scrollBehavior = scrollBehavior
             )
         },
@@ -109,6 +117,10 @@ fun AppRootScreen(
                 Text(text = stringResource(R.string.reset_button_label))
             }
         }
+    }
+
+    if (showAboutDialog) {
+        DiceGameAbout(onDismissRequest = { showAboutDialog = false })
     }
 }
 
@@ -173,6 +185,26 @@ fun NumberOfDiceInput(
         }
     }
 }
+
+@Composable
+fun DiceGameAbout(onDismissRequest: () -> Unit) =
+    AlertDialog(
+        onDismissRequest = onDismissRequest,
+        title = { Text(stringResource(R.string.about_dice_game)) },
+        text = {
+            Text(
+                text = stringResource(R.string.programming_example),
+                fontSize = 18.sp
+            )
+        },
+        confirmButton = {
+            TextButton(
+                onClick = onDismissRequest
+            ) {
+                Text(stringResource(R.string.ok))
+            }
+        }
+    )
 
 @Preview
 @Composable

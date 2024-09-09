@@ -1,7 +1,5 @@
 package ca.tetervak.dicegame.ui.roller
 
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -12,6 +10,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.sp
 import ca.tetervak.dicegame.R
@@ -19,7 +18,8 @@ import ca.tetervak.dicegame.R
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RollerTopAppBar(
-    scrollBehavior: TopAppBarScrollBehavior,
+    onHelpButtonClick: () -> Unit,
+    scrollBehavior: TopAppBarScrollBehavior
 ) = CenterAlignedTopAppBar(
     colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
         containerColor = MaterialTheme.colorScheme.primaryContainer,
@@ -33,13 +33,13 @@ fun RollerTopAppBar(
     },
     actions = {
         IconButton(
-            onClick = { },
+            onClick = onHelpButtonClick,
             colors = IconButtonDefaults.iconButtonColors(
                 contentColor = MaterialTheme.colorScheme.primary
             )
         ) {
             Icon(
-                imageVector = Icons.Filled.MoreVert,
+                painter = painterResource(id = R.drawable.baseline_help_outline_24),
                 contentDescription = stringResource(R.string.menu)
             )
         }
