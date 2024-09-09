@@ -14,12 +14,12 @@ import androidx.compose.material3.ExposedDropdownMenuBox
 import androidx.compose.material3.ExposedDropdownMenuDefaults
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MenuAnchorType
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -30,7 +30,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
-import androidx.compose.ui.platform.LocalTextInputService
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringArrayResource
 import androidx.compose.ui.res.stringResource
@@ -129,34 +128,31 @@ fun NumberOfDiceInput(
         onExpandedChange = { selectExpanded = it },
         modifier = modifier
     ) {
-        CompositionLocalProvider(LocalTextInputService provides null) {
-            // the CompositionLocalProvider is to go around a library bug, popping keyboard
-            OutlinedTextField(
-                readOnly = true,
-                value = selectedText,
-                onValueChange = { },
-                label = {
-                    Text(
-                        text = stringResource(R.string.number_of_dice),
-                        fontSize = 14.sp
-                    )
-                },
-                trailingIcon = {
-                    ExposedDropdownMenuDefaults.TrailingIcon(
-                        expanded = selectExpanded
-                    )
-                },
-                colors = ExposedDropdownMenuDefaults.textFieldColors(
-                    unfocusedContainerColor = Color.White,
-                    focusedContainerColor = Color.White
-                ),
-                textStyle = TextStyle.Default.copy(
-                    fontSize = 20.sp,
-                    color = colorResource(id = R.color.purple_500)
-                ),
-                modifier = Modifier.menuAnchor()
-            )
-        }
+        OutlinedTextField(
+            readOnly = true,
+            value = selectedText,
+            onValueChange = { },
+            label = {
+                Text(
+                    text = stringResource(R.string.number_of_dice),
+                    fontSize = 14.sp
+                )
+            },
+            trailingIcon = {
+                ExposedDropdownMenuDefaults.TrailingIcon(
+                    expanded = selectExpanded
+                )
+            },
+            colors = ExposedDropdownMenuDefaults.textFieldColors(
+                unfocusedContainerColor = Color.White,
+                focusedContainerColor = Color.White
+            ),
+            textStyle = TextStyle.Default.copy(
+                fontSize = 20.sp,
+                color = colorResource(id = R.color.purple_500)
+            ),
+            modifier = Modifier.menuAnchor(MenuAnchorType.PrimaryNotEditable)
+        )
         ExposedDropdownMenu(
             expanded = selectExpanded,
             onDismissRequest = {
