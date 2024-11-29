@@ -1,5 +1,6 @@
 package ca.tetervak.dicegame.domain
 
+import ca.tetervak.dicegame.data.RollerService
 import org.junit.After
 import org.junit.Assert.*
 import org.junit.Before

@@ -1,5 +1,6 @@
-package ca.tetervak.dicegame.domain
+package ca.tetervak.dicegame.data
 
+import ca.tetervak.dicegame.domain.RollData
 import kotlin.random.Random
 
 class RollerService(

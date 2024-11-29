@@ -2,7 +2,7 @@ package ca.tetervak.dicegame.ui.roller
 
 import androidx.lifecycle.ViewModel
 import ca.tetervak.dicegame.domain.RollData
-import ca.tetervak.dicegame.domain.RollerService
+import ca.tetervak.dicegame.data.RollerService
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import java.util.Date
