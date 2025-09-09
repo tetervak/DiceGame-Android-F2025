@@ -6,12 +6,12 @@ plugins {
 
 android {
     namespace = "ca.tetervak.dicegame"
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "ca.tetervak.dicegame"
-        minSdk = 30
-        targetSdk = 35
+        minSdk = 35
+        targetSdk = 36
         versionCode = 1
         versionName = "1.0"
 
