@@ -1,6 +1,6 @@
 package ca.tetervak.dicegame.domain
 
-import ca.tetervak.dicegame.data.RollerService
+import ca.tetervak.dicegame.data.RollDataRepository
 import org.junit.After
 import org.junit.Assert.*
 import org.junit.Before
@@ -12,7 +12,7 @@ class RollerServiceTest {
 
     // specifying the seed makes the "random" sequence always the same
     private val random: Random = Random(seed = 10)
-    private val rollerService: RollerService = RollerService(random)
+    private val rollDataRepository: RollDataRepository = RollDataRepository(random)
 
     @Before
     fun setUp() {
@@ -29,7 +29,7 @@ class RollerServiceTest {
         for(numberOfDice: Int in 1..4){
             for(repetition: Int in 1..5){
                 println("test getNumberOfDice($numberOfDice) repetition $repetition")
-                val rollData = rollerService.getRollData(numberOfDice)
+                val rollData = rollDataRepository.getRandomRollData(numberOfDice)
                 println("rollData = $rollData")
                 assertEquals(numberOfDice, rollData.numberOfDice)
                 val values = rollData.values
@@ -45,7 +45,7 @@ class RollerServiceTest {
     fun getRollData_ZeroDice(){
         println("test throwing exception for getRollData(numberOfDice = 0)")
         assertThrows(IllegalArgumentException::class.java) {
-            val rollData = rollerService.getRollData(numberOfDice = 0)
+            val rollData = rollDataRepository.getRandomRollData(numberOfDice = 0)
             println("rollData = $rollData")
         }
     }

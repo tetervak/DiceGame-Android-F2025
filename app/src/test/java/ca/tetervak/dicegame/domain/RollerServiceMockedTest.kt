@@ -1,6 +1,6 @@
 package ca.tetervak.dicegame.domain
 
-import ca.tetervak.dicegame.data.RollerService
+import ca.tetervak.dicegame.data.RollDataRepository
 import org.junit.After
 import org.junit.Assert.*
 import org.junit.Before
@@ -19,7 +19,7 @@ class RollerServiceMockedTest{
             1 + (count++) % 6
         }
     }
-    private val rollerService: RollerService = RollerService(mockRandom)
+    private val rollDataRepository: RollDataRepository = RollDataRepository(mockRandom)
 
     @Before
     fun setUp() {
@@ -36,7 +36,7 @@ class RollerServiceMockedTest{
         for(numberOfDice: Int in 1..4){
             for(repetition: Int in 1..5){
                 println("test getNumberOfDice($numberOfDice) repetition $repetition")
-                val rollData = rollerService.getRollData(numberOfDice)
+                val rollData = rollDataRepository.getRandomRollData(numberOfDice)
                 println("rollData = $rollData")
                 assertEquals(numberOfDice, rollData.numberOfDice)
                 val values = rollData.values

@@ -3,11 +3,11 @@ package ca.tetervak.dicegame.data
 import ca.tetervak.dicegame.domain.RollData
 import kotlin.random.Random
 
-class RollerService(
+class RollDataRepository(
     private val random: Random = Random.Default
 ) {
 
-    fun getRollData(numberOfDice: Int): RollData {
+    fun getRandomRollData(numberOfDice: Int): RollData {
         if (numberOfDice > 0) {
             val list: List<Int> =
                 buildList(capacity = numberOfDice) {
