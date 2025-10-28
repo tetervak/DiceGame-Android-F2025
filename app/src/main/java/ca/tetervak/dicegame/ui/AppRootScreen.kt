@@ -11,11 +11,11 @@ import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ExposedDropdownMenuAnchorType
 import androidx.compose.material3.ExposedDropdownMenuBox
 import androidx.compose.material3.ExposedDropdownMenuDefaults
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
-import androidx.compose.material3.MenuAnchorType
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -40,7 +40,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import ca.tetervak.dicegame.R
 import ca.tetervak.dicegame.ui.roller.NotRolledBody
 import ca.tetervak.dicegame.ui.roller.RolledBody
@@ -50,9 +50,9 @@ import ca.tetervak.dicegame.ui.roller.RollerViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AppRootScreen(
-    viewModel: RollerViewModel = viewModel()
-) {
+fun AppRootScreen() {
+
+    val viewModel: RollerViewModel = hiltViewModel()
     val state: State<RollerUiState> = viewModel.uiState.collectAsState()
     val uiState: RollerUiState = state.value
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
@@ -163,7 +163,7 @@ fun NumberOfDiceInput(
                 fontSize = 20.sp,
                 color = colorResource(id = R.color.purple_500)
             ),
-            modifier = Modifier.menuAnchor(MenuAnchorType.PrimaryNotEditable)
+            modifier = Modifier.menuAnchor(ExposedDropdownMenuAnchorType.PrimaryNotEditable)
         )
         ExposedDropdownMenu(
             expanded = selectExpanded,
@@ -206,7 +206,7 @@ fun DiceGameAbout(onDismissRequest: () -> Unit) =
         }
     )
 
-@Preview
+/*@Preview
 @Composable
 fun RollerScreenPreviewNotRolled() {
     AppRootScreen(RollerViewModel())
@@ -218,4 +218,4 @@ fun RollerScreenPreviewRolled() {
     val viewModel = RollerViewModel()
     viewModel.onRoll()
     AppRootScreen(viewModel)
-}
+}*/
