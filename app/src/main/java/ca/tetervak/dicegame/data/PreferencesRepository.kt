@@ -6,9 +6,11 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.emptyPreferences
 import androidx.datastore.preferences.core.intPreferencesKey
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.withContext
 import java.io.IOException
 
 class PreferencesRepository(
@@ -38,8 +40,10 @@ class PreferencesRepository(
     fun getNumberOfDiceFlow(): Flow<Int> = numberOfDice
 
     suspend fun saveNumberOfDice(numberOfDice: Int) {
-        dataStore.edit { preferences ->
-            preferences[numberOfDiceKey] = numberOfDice
+        withContext(context = Dispatchers.IO){
+            dataStore.edit { preferences ->
+                preferences[numberOfDiceKey] = numberOfDice
+            }
         }
     }
 
