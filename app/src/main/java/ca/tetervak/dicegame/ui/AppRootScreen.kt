@@ -42,11 +42,14 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import ca.tetervak.dicegame.R
+import ca.tetervak.dicegame.domain.RollData
 import ca.tetervak.dicegame.ui.roller.NotRolledBody
 import ca.tetervak.dicegame.ui.roller.RolledBody
 import ca.tetervak.dicegame.ui.roller.RollerTopAppBar
 import ca.tetervak.dicegame.ui.roller.RollerUiState
 import ca.tetervak.dicegame.ui.roller.RollerViewModel
+import ca.tetervak.dicegame.ui.theme.DiceGameTheme
+import java.util.Date
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -55,21 +58,43 @@ fun AppRootScreen() {
     val viewModel: RollerViewModel = hiltViewModel()
     val state: State<RollerUiState> = viewModel.uiState.collectAsState()
     val uiState: RollerUiState = state.value
-    val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
 
     var showAboutDialog: Boolean by rememberSaveable {
         mutableStateOf(false)
     }
 
+    AppRootScreenBody(
+        uiState = uiState,
+        onChangeOfNumberOfDice = viewModel::onChangeOfNumberOfDice,
+        onRoll = viewModel::onRoll,
+        onReset = viewModel::onReset,
+        onHelp = { showAboutDialog = true}
+    )
+
+    if (showAboutDialog) {
+        DiceGameAbout(onDismissRequest = { showAboutDialog = false })
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun AppRootScreenBody(
+    uiState: RollerUiState,
+    onChangeOfNumberOfDice: (Int) -> Unit,
+    onRoll: () -> Unit,
+    onReset: () -> Unit,
+    onHelp: () -> Unit
+){
+    val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
     Scaffold(
         topBar = {
             RollerTopAppBar(
-                onHelpButtonClick = { showAboutDialog = true },
+                onHelpButtonClick = onHelp,
                 scrollBehavior = scrollBehavior
             )
         },
         floatingActionButton = {
-            FloatingActionButton(onClick = viewModel::onRoll) {
+            FloatingActionButton(onClick = onRoll) {
                 Icon(
                     imageVector = Icons.Outlined.Refresh,
                     contentDescription = stringResource(R.string.roll_dice)
@@ -92,7 +117,7 @@ fun AppRootScreen() {
 
             NumberOfDiceInput(
                 numberOfDice = uiState.numberOfDice,
-                onChange = viewModel::onChangeOfNumberOfDice
+                onChange = onChangeOfNumberOfDice
             )
 
             when (uiState) {
@@ -107,20 +132,16 @@ fun AppRootScreen() {
             }
 
             Button(
-                onClick = viewModel::onRoll, modifier = Modifier.padding(top = 8.dp)
+                onClick = onRoll, modifier = Modifier.padding(top = 8.dp)
             ) {
                 Text(text = stringResource(R.string.roll_button_label, uiState.numberOfDice))
             }
             Button(
-                onClick = viewModel::onReset, modifier = Modifier.padding(top = 16.dp)
+                onClick = onReset, modifier = Modifier.padding(top = 16.dp)
             ) {
                 Text(text = stringResource(R.string.reset_button_label))
             }
         }
-    }
-
-    if (showAboutDialog) {
-        DiceGameAbout(onDismissRequest = { showAboutDialog = false })
     }
 }
 
@@ -206,16 +227,30 @@ fun DiceGameAbout(onDismissRequest: () -> Unit) =
         }
     )
 
-/*@Preview
+@Preview
 @Composable
 fun RollerScreenPreviewNotRolled() {
-    AppRootScreen(RollerViewModel())
+    DiceGameTheme {
+        AppRootScreenBody(
+            uiState = RollerUiState.NotRolled(numberOfDice = 3),
+            onChangeOfNumberOfDice = {},
+            onRoll = {},
+            onReset = {},
+            onHelp = {}
+        )
+    }
 }
 
 @Preview
 @Composable
 fun RollerScreenPreviewRolled() {
-    val viewModel = RollerViewModel()
-    viewModel.onRoll()
-    AppRootScreen(viewModel)
-}*/
+    DiceGameTheme {
+        AppRootScreenBody(
+            uiState = RollerUiState.Rolled(rollData = RollData(listOf(1, 2, 3)), date = Date()),
+            onChangeOfNumberOfDice = {},
+            onRoll = {},
+            onReset = {},
+            onHelp = {}
+        )
+    }
+}
